@@ -1,17 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tabloid.Models;
 using Tabloid.Utils;
+using Tabloid.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Tabloid.Repositories
 {
-    public class PostRepository : BaseRepository
+    public class PostRepository : BaseRepository, IPostRepository
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
-        public Post GetByUserId(int id)
+        public Post GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -62,7 +62,6 @@ namespace Tabloid.Repositories
                     return post;
                 }
             }
-
         }
     }
 }
