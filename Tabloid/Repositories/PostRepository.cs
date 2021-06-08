@@ -19,10 +19,11 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT Id, Title, DateCreated, UserProfileId,
-                    FROM Post p 
+                SELECT p.Id as p.PostId, p.Title, p.Content, p.CreateDateTime as PostCreateDate, p.PublishDateTime as PostPublishDate, p.IsApproved, p.ImageLocation as PostImageLocation, u.Id as UserId, FireBaseUserId, DisplayName, FirstName, LastName, Email, u.CreateDateTime as UserCreateDateTime, u.ImageLocation as UserImageLocation, UserTypeId, c.Id as CategoryId, Name
+                    FROM Post p JOIN Category c on p.CategoryId = c.Id
+                    JOIN UserProfile u on p.UserProfileId = u.Id
                     WHERE UserProfileId = @Id
-                    ORDER BY p.DateCreated";
+                    ORDER BY p.CreateDateTime";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -35,18 +36,24 @@ namespace Tabloid.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "PostId"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            Caption = DbUtils.GetString(reader, "Caption"),
-                            DateCreated = DbUtils.GetDateTime(reader, "PostDateCreated"),
-                            ImageUrl = DbUtils.GetString(reader, "PostImageUrl"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            UserProfile = new UserProfile()
+                            Content = DbUtils.GetString(reader, "Content"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "PostCreateDate"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PostPublishDate"),
+                            ImageLocation = DbUtils.GetString(reader, "PostImageLocation"),
+                            Author = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                Name = DbUtils.GetString(reader, "Name"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName"),
                                 Email = DbUtils.GetString(reader, "Email"),
-                                DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
-                                ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                                CreateDateTime = DbUtils.GetDateTime(reader, "UserCreateDateTime"),
+                                ImageLocation = DbUtils.GetString(reader, "UserImageLocation"),
+                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             },
+                            Category = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                Name = DbUtils.GetString(reader, "UserProfileId"),
+                            }
                         };
                     }
 
@@ -58,3 +65,4 @@ namespace Tabloid.Repositories
 
         }
     }
+}
