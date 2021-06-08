@@ -3,7 +3,7 @@ import { Card, Button, CardTitle, CardText, Row, Col, Media } from "reactstrap";
 import { PostContext } from "../providers/PostProvider";
 import { useHistory, useParams } from "react-router-dom";
 import Post from "./Post";
-import CardBody from "reactstrap/lib/CardBody";
+import CardImg from "reactstrap/lib/CardImg";
 
 const PostDetails = () => {
   const [post, setPost] = useState();
@@ -34,10 +34,10 @@ const PostDetails = () => {
         <Col sm="12">
             <Card body>
                     <CardTitle tag="h3">{post.title}</CardTitle>
-                    <Media src={post.imageLocation} rounded/>
+                    <CardImg src={post.imageLocation}/>
                     <CardText>{post.content}</CardText>
-                    <p>{publishDate}</p>
-                    <p>{post.userProfile.displayName}</p>
+                    <strong>Publish Date: {publishDate}</strong>
+                    <strong>Author: {post.userProfile.displayName}</strong>
                     <Button onClick={handleClick}>Go Back</Button>
             </Card>
         </Col>
