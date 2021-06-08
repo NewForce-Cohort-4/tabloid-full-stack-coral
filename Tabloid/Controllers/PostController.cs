@@ -11,48 +11,53 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-				[Route("api/[controller]")]
-				[ApiController]
+    [Route("api/[controller]")]
+    [ApiController]
 				[Authorize]
-				public class PostController : ControllerBase
-				{
-								private readonly IPostRepository _postRepository;
+    public class PostController : ControllerBase
+    {
+        private readonly IPostRepository _postRepository;
 
-								public PostController(IPostRepository postRepository)
-								{
-												_postRepository = postRepository;
-								}
+        public PostController(IPostRepository postRepository)
+        {
+            _postRepository = postRepository;
+        }
 
-								// GET: api/<ValuesController>
-								[HttpGet]
+        // GET: api/<ValuesController>
+        [HttpGet]
 								public IActionResult Get()
-								{
+        {
 												return Ok(_postRepository.GetAllApprovedPosts());
-								}
+        }
 
-								// GET api/<ValuesController>/5
-								[HttpGet("{id}")]
-								public string Get(int id)
-								{
-												return "value";
-								}
+        // GET api/<ValuesController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var post = _postRepository.GetById(id);
+            if(post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
 
-								// POST api/<ValuesController>
-								[HttpPost]
-								public void Post([FromBody] string value)
-								{
-								}
+        // POST api/<ValuesController>
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
 
-								// PUT api/<ValuesController>/5
-								[HttpPut("{id}")]
-								public void Put(int id, [FromBody] string value)
-								{
-								}
+        // PUT api/<ValuesController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
 
-								// DELETE api/<ValuesController>/5
-								[HttpDelete("{id}")]
-								public void Delete(int id)
-								{
-								}
-				}
+        // DELETE api/<ValuesController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+    }
 }

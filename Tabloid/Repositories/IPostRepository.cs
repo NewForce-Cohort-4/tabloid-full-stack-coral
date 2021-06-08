@@ -3,8 +3,9 @@ using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
-				public interface IPostRepository
-				{
+    public interface IPostRepository
+    {
 								List<Post> GetAllApprovedPosts();
+								Post GetById(int id);
 				}
 }
