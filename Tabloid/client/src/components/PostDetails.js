@@ -34,7 +34,7 @@ const PostDetails = () => {
         <Col sm="12">
             <Card body>
                     <CardTitle tag="h3">{post.title}</CardTitle>
-                    <Media src={post.imageLocaton} rounded/>
+                    <Media src={post.imageLocation} rounded/>
                     <CardText>{post.content}</CardText>
                     <p>{publishDate}</p>
                     <p>{post.userProfile.displayName}</p>
