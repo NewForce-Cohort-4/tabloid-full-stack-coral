@@ -9,15 +9,22 @@ export const PostProvider = (props) => {
   const [searchPost, setSearchPost] = useState("")
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const getToken = () => firebase.auth().currentUser.getIdToken();
-  
+
+  const apiUrl = "https://localhost:5001/api/post";
+
   const getAllPosts = () => {
-    return fetch("/api/post/getwithcomments")
-      .then((res) => res.json())
-      .then(setPosts);
+    return getToken().then((token) => 
+      fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    }).then((res) => res.json()))
+    .then(setPosts);
   };
 
   const addPost = (post) => {
-    return fetch("/api/post", {
+    return fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,14 +34,19 @@ export const PostProvider = (props) => {
   };
 
   const findPost = (q) => {
-    return fetch(`api/post/search?q=${q}&sortDesc=true`)
+    return fetch(`${apiUrl}/search?q=${q}&sortDesc=true`)
     .then((res) => res.json())
     .then(setPosts)
   }
 
   const getPost = (id) => {
-      return fetch(`/api/post/${id}`)
-      .then((res) => res.json())
+      return getToken().then((token) => 
+      fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((res) => res.json()))
   }
 
   const getCurrentUserPosts = () => {
