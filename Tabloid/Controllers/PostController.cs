@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualBasic;
 using System;
+using System.Security.Claims;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
@@ -12,9 +13,11 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+				[Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
+
         public PostController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
@@ -22,9 +25,9 @@ namespace Tabloid.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+		public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+		    return Ok(_postRepository.GetAllApprovedPosts());
         }
 
         // GET api/<ValuesController>/5
@@ -41,10 +44,8 @@ namespace Tabloid.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public IActionResult Post(Post post)
+        public void Post([FromBody] string value)
         {
-            _postRepository.Add(post);
-            return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
         // PUT api/<ValuesController>/5
