@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostDetails from "./PostDetails"
+import PostForm from "./PostForm"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -26,6 +27,10 @@ export default function ApplicationViews() {
 
         <Route path="/post/:id">
           <PostDetails />
+        </Route>
+
+        <Route path="/posts/add">
+          <PostForm />
         </Route>
       </Switch>
     </main>
