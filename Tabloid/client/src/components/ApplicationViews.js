@@ -30,7 +30,7 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/post/:id">
+        <Route path="/posts/:id">
           <PostDetails />
         </Route>
 
