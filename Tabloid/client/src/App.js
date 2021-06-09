@@ -14,6 +14,7 @@ function App() {
           <ApplicationViews />
         </UserProfileProvider>
       </PostProvider>
+      
     </Router>
   );
 }

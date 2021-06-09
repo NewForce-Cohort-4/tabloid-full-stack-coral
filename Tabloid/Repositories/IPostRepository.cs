@@ -1,4 +1,5 @@
-﻿using Tabloid.Models;
+﻿using System.Collections.Generic;
+using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
@@ -6,5 +7,6 @@ namespace Tabloid.Repositories
     {
         Post GetById(int id);
         void Add(Post post);
+        List<Post> GetAllApprovedPosts();
     }
 }

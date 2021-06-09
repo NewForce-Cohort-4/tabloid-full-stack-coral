@@ -1,9 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Card, Button, CardTitle, CardText, Row, Col, Media } from "reactstrap";
+import { Card, Button, CardTitle, CardText, Row, Col, Media, CardImg } from "reactstrap";
 import { PostContext } from "../providers/PostProvider";
 import { useHistory, useParams } from "react-router-dom";
 import Post from "./Post";
-import CardImg from "reactstrap/lib/CardImg";
 
 const PostDetails = () => {
   const [post, setPost] = useState();
