@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualBasic;
 using System;
+using System.Security.Claims;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,9 +13,11 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+				[Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
+
         public PostController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
@@ -21,9 +25,9 @@ namespace Tabloid.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+								public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+												return Ok(_postRepository.GetAllApprovedPosts());
         }
 
         // GET api/<ValuesController>/5
