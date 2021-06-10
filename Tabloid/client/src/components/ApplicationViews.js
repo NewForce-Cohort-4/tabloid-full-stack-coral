@@ -35,7 +35,7 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/myposts">
-          <UserPosts />
+          {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </main>
