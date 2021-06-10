@@ -5,7 +5,9 @@ namespace Tabloid.Repositories
 {
     public interface IPostRepository
     {
-								List<Post> GetAllApprovedPosts();
-								Post GetById(int id);
-				}
+        Post GetById(int id);
+        public List<Post> GetUserPosts(int id);
+        List<Post> GetAllApprovedPosts();
+    }
+								
 }

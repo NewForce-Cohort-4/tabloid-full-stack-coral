@@ -1,5 +1,5 @@
-import React, { useState, createContext } from "react";
-import * as firebase from "firebase/app";
+import React, { useState, createContext, useEffect } from "react";
+import firebase from "firebase/app";
 import "firebase/auth";
 
 export const PostContext = React.createContext();
@@ -7,6 +7,7 @@ export const PostContext = React.createContext();
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
   const [searchPost, setSearchPost] = useState("")
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const getToken = () => firebase.auth().currentUser.getIdToken();
 
   const apiUrl = "https://localhost:5001/api/post";
@@ -48,8 +49,20 @@ export const PostProvider = (props) => {
       }).then((res) => res.json()))
   }
 
+  const getCurrentUserPosts = () => {
+     return getToken().then((token) =>
+       fetch(`/api/post/getbyuser/${userProfile.id}`, {
+         method: "GET",
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       }).then((resp) => resp.json())
+       .then(setPosts)
+     );
+  }
+
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost }}>
+    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost, getCurrentUserPosts }}>
       {props.children}
     </PostContext.Provider>
   );
