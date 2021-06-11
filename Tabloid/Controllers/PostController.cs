@@ -44,14 +44,23 @@ namespace Tabloid.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Post post)
         {
+            _postRepository.Add(post);
+            return CreatedAtAction("Get", new { id = post.Id}, post);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, Post post)
         {
+            if(id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            _postRepository.UpdatePost(post);
+            return NoContent();
         }
 
         // DELETE api/<ValuesController>/5

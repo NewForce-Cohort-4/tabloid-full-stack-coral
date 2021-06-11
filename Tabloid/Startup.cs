@@ -24,6 +24,7 @@ namespace Tabloid
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
@@ -81,14 +82,14 @@ namespace Tabloid
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tabloid v1"));
 
-																// Do not block requests while in development
-																app.UseCors(options =>
-																{
-																				options.AllowAnyOrigin();
-																				options.AllowAnyMethod();
-																				options.AllowAnyHeader();
-																});
-												}
+				// Do not block requests while in development
+				app.UseCors(options =>
+				{
+								options.AllowAnyOrigin();
+								options.AllowAnyMethod();
+								options.AllowAnyHeader();
+				});
+			}
 
             app.UseHttpsRedirection();
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Form,
   FormGroup,
@@ -6,43 +6,58 @@ import {
   CardBody,
   Label,
   Input,
-  Button,
+  Button
 } from "reactstrap";
 import { PostContext } from "../providers/PostProvider";
-import { useHistory } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { CategoryContext } from "../providers/CategoryProvider"
+import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {
-  const { addPost } = useContext(PostContext);
-  const { getUserProfile } = useContext(UserProfileContext);
-  const [userProfileId, setUserProfileId] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [createDateTime, setCreateDateTime] = useState("");
-  const [publishDateTime, setPublishDateTime] = useState("");
-  const [isApproved, setIsApproved] = useState("");
+  const { addPost, post, updatePost } = useContext(PostContext);
+  const { categories, getAllCategories } = useContext(CategoryContext);
+  const [categoryId, setCategoryId] = useState();
   const [imageLocation, setImageLocation] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Use this hook to allow us to programatically redirect users
   const history = useHistory();
 
-  const submit = (e) => {
-    const post = {
+  useEffect(() => {
+    getAllCategories();
+  }, [])
+
+  const { postId } = useParams();
+
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"))
+
+  const submit = () => {
+    if(postId){
+        setIsLoading(true)
+        updatePost({
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            imageLocation: post.imageLocation
+        })
+        .then(() => history.push(`/posts`))
+    } else {
+    const newPost = {
       title,
       content,
       imageLocation,
       createDateTime: new Date(),
-      publishDateTime,
-      isApproved,
-      categoryId: +categoryId,
-      userProfileId: +userProfileId
+      publishDateTime: new Date(),
+      isApproved: true,
+      categoryId,
+      userProfileId: userProfile.id
     };
 
-    addPost(post).then((p) => {
+    addPost(newPost).then(() => {
       // Navigate the user back to the home route
-      history.push("/");
+      history.push(`/posts/`);
     });
+    }
   };
 
   return (
@@ -50,34 +65,36 @@ const PostForm = () => {
       <div className="row justify-content-center">
         <Card className="col-sm-12 col-lg-6">
           <CardBody>
+            <h1>Add A New Post</h1>
             <Form>
               <FormGroup>
-                <Label for="userId">User Id (For Now...)</Label>
-                <Input
-                  id="userId"
-                  onChange={(e) => setUserProfileId(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="imageLocation">Image URL</Label>
-                <Input
-                  id="imageLocation"
-                  onChange={(e) => setImageLocation(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
                 <Label for="title">Title</Label>
-                <Input id="title" onChange={(e) => setTitle(e.target.value)} />
+                <Input id="title" name="title" onChange={(e) => setTitle(e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="content">Content</Label>
+                <Label for="content" name="content">Content</Label>
                 <Input
                   id="content"
                   onChange={(e) => setContent(e.target.value)}
                 />
               </FormGroup>
+              <FormGroup>
+                <Label for="imageLocation">Image URL</Label>
+                <Input
+                  id="imageLocation" name="imageLocation"
+                  onChange={(e) => setImageLocation(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                    <Label for="exampleSelectMulti">Select A Category</Label>
+                    <Input type="select" name="select" id="exampleSelect" onClick={(e) => setCategoryId(parseInt(e.target.value))}>
+                        {categories.map((category) => (
+                        <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
+                    </Input>
+              </FormGroup>
             </Form>
-            <Button color="info" onClick={submit}>
+            <Button color="info" onClick={() => submit()}>
               SUBMIT
             </Button>
           </CardBody>

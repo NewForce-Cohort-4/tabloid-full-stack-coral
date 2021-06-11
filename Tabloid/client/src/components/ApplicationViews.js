@@ -37,6 +37,10 @@ export default function ApplicationViews() {
         <Route path="/posts/add">
           <PostForm />
         </Route>
+
+        <Route path="/posts/edit/:postId">
+          <PostForm />
+        </Route>
       </Switch>
     </main>
   );

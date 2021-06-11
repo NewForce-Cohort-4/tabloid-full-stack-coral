@@ -1,8 +1,15 @@
 import React from "react";
-import { Card, CardTitle, CardImg, CardBody, Badge } from "reactstrap";
-import { Link } from "react-router-dom"
+import { Card, CardTitle, CardImg, CardBody, Badge, Button } from "reactstrap";
+import { Link, useHistory } from "react-router-dom"
 
 const Post = ({ post }) => {
+
+  const history = useHistory();
+
+  const handleClick = () => {
+        history.push(`/posts/edit`)
+  }
+
   return (
     <Card className="m-4 p-2">
         <Link to={`/posts/${post.id}`}>
@@ -16,7 +23,10 @@ const Post = ({ post }) => {
           <div>
               {post.comments === null ? null : post.comments?.map((comment) => (<p key={comment.id}>{comment.message}</p>))}
           </div>
-          <p className="text-left">Posted by: <em>{post.userProfile.displayName}</em></p> 
+          <p className="text-left">Posted by: <em>{post.userProfile.displayName}</em></p>
+          <Button color="secondary" onClick={() => {
+            history.push(`/posts/edit/${post.id}`)
+            }}>Edit</Button>
         </CardBody>
     </Card>
   );

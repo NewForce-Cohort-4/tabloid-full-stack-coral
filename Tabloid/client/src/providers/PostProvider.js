@@ -6,6 +6,7 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState([]);
   const [searchPost, setSearchPost] = useState("")
   const getToken = () => firebase.auth().currentUser.getIdToken();
 
@@ -23,14 +24,36 @@ export const PostProvider = (props) => {
   };
 
   const addPost = (post) => {
-    return fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
+    return getToken().then((token) =>
+        fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(post)
+    }).then(resp => {
+      // debugger
+      if (resp.ok) {
+        return resp.json();
+      }
+      throw new Error("Unauthorized");
+    }));
   };
+
+  const updatePost = post => {
+    return getToken().then((token) =>
+    fetch (`apiUrl/${post.id}`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(post)
+    }))
+        .then(getAllPosts)
+        
+}
 
   const findPost = (q) => {
     return fetch(`${apiUrl}/search?q=${q}&sortDesc=true`)
@@ -49,7 +72,7 @@ export const PostProvider = (props) => {
   }
 
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost }}>
+    <PostContext.Provider value={{ post, setPost, posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost, updatePost }}>
       {props.children}
     </PostContext.Provider>
   );
