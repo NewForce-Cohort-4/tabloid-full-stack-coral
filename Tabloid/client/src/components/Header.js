@@ -43,6 +43,11 @@ export default function Header() {
                     My Posts
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/categories/create">
+                    Categories
+                  </NavLink>
+                </NavItem>
               </>
             )}
           </Nav>

@@ -13,14 +13,14 @@ namespace Tabloid.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-								public List<Post> GetAllApprovedPosts()
-								{
-												using (SqlConnection conn = Connection)
-												{
-																conn.Open();
-																using (SqlCommand cmd = conn.CreateCommand())
-																{
-																				cmd.CommandText = @"
+        public List<Post> GetAllApprovedPosts()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
 																							SELECT p.Id AS PostId, 
 																														p.Title, p.Content, 
 																														p.ImageLocation AS HeaderImage,
@@ -41,51 +41,51 @@ namespace Tabloid.Repositories
 																								WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
 																								ORDER BY p.PublishDateTime DESC";
 
-																				SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-																				List<Post> posts = new List<Post>();
+                    List<Post> posts = new List<Post>();
 
-																				while (reader.Read())
-																				{
-																								posts.Add(new Post()
-																								{
-																												Id = DbUtils.GetInt(reader, "PostId"),
-																												Title = DbUtils.GetString(reader, "Title"),
-																												Content = DbUtils.GetString(reader, "Content"),
-																												ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
-																												CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-																												CategoryId = DbUtils.GetInt(reader, "PostCategoryId"),
-																												Category = new Category()
-																												{
-																																Name = DbUtils.GetString(reader, "CategoryName")
-																												},
-																												UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-																												UserProfile = new UserProfile()
-																												{
-																																Id = DbUtils.GetInt(reader, "UserProfileId"),
-																																FirstName = DbUtils.GetString(reader, "FirstName"),
-																																LastName = DbUtils.GetString(reader, "LastName"),
-																																DisplayName = DbUtils.GetString(reader, "DisplayName"),
-																																Email = DbUtils.GetString(reader, "Email"),
-																																CreateDateTime = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
-																																ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
-																																UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-																																UserType = new UserType()
-																																{
-																																				Name = DbUtils.GetString(reader, "UserTypeName")
-																																}
-																												}
-																												
-																								});
-																				}
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            CategoryId = DbUtils.GetInt(reader, "PostCategoryId"),
+                            Category = new Category()
+                            {
+                                Name = DbUtils.GetString(reader, "CategoryName")
+                            },
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                CreateDateTime = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
+                                ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
+                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                                UserType = new UserType()
+                                {
+                                    Name = DbUtils.GetString(reader, "UserTypeName")
+                                }
+                            }
 
-																				reader.Close();
+                        });
+                    }
 
-																				return posts;
-																}
-												}
-								}
-								public Post GetById(int id)
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+        public Post GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -133,9 +133,9 @@ namespace Tabloid.Repositories
 
                     reader.Close();
 
-																				return post;
+                    return post;
 
-																}
+                }
             }
         }
 
