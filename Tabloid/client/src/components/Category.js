@@ -7,7 +7,7 @@ const Category = ({ category }) => {
     return (
         <>
             <tr>
-                <th scope="row">{category.id}</th>
+                <th scope="row">{category.listIndex}</th>
                 <td><h4>{category.name}</h4></td>
                 {/* Button Placeholder */}
                 {/* <td><div><Button>Edit</Button><Button>Delete</Button></div></td> */}

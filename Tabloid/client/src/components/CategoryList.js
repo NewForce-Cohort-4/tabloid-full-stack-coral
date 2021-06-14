@@ -23,9 +23,10 @@ const CategoryList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((cat) => (
-                            <Category key={cat.id} category={cat} />
-                        ))}
+                        {categories.map((cat, index) => {
+                            cat.listIndex = index+1;
+                            return <Category key={cat.id} category={cat} />
+                        })}
                     </tbody>
                 </Table>
             </Container>
