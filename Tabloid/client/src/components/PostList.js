@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../providers/PostProvider";
-import { Container, Row, Col, Media } from "reactstrap";
+import { Container } from "reactstrap";
 import Post from "./Post"
 
 const PostList = () => {
