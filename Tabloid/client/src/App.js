@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { PostProvider } from "./providers/PostProvider"
+import { CategoryProvider } from "./providers/CategoryProvider"
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 
@@ -10,11 +11,12 @@ function App() {
     <Router>
       <PostProvider>
         <UserProfileProvider>
-          <Header />
-          <ApplicationViews />
+          <CategoryProvider>
+            <Header />
+            <ApplicationViews />
+          </CategoryProvider>
         </UserProfileProvider>
       </PostProvider>
-      
     </Router>
   );
 }
