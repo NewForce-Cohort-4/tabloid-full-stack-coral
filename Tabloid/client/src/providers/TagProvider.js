@@ -21,12 +21,22 @@ export const TagProvider = (props) => {
      )
      .then(setTags);
  };
-
+  const deleteTag = (id) => {
+    debugger
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+  };
 
   return (
     <TagContext.Provider
       value={{
-        getAllTags, tags
+        getAllTags, tags, deleteTag
       }}
     >
       {props.children}
