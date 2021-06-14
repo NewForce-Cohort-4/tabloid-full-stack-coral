@@ -137,7 +137,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Add(Post post)
+        public Post Add(Post post)
         {
             using (var conn = Connection)
             {
@@ -161,6 +161,8 @@ namespace Tabloid.Repositories
                     post.Id = (int)cmd.ExecuteScalar();
                 }
             }
+
+            return post;
         }
 
         public void UpdatePost(Post post)

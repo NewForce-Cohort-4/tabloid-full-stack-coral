@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { useHistory } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
@@ -9,6 +10,7 @@ export const PostProvider = (props) => {
   const [post, setPost] = useState([]);
   const [searchPost, setSearchPost] = useState("")
   const getToken = () => firebase.auth().currentUser.getIdToken();
+  const history = useHistory();
 
   const apiUrl = "https://localhost:5001/api/post";
 
@@ -23,7 +25,7 @@ export const PostProvider = (props) => {
     .then(setPosts);
   };
 
-  const addPost = (post) => {
+  const addPost = (postToAdd) => {
     return getToken().then((token) =>
         fetch(apiUrl, {
             method: "POST",
@@ -31,11 +33,11 @@ export const PostProvider = (props) => {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(post)
+            body: JSON.stringify(postToAdd)
     }).then(resp => {
       // debugger
       if (resp.ok) {
-        return resp.json();
+         return resp.json()
       }
       throw new Error("Unauthorized");
     }));

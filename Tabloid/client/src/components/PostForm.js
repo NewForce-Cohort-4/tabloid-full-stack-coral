@@ -53,9 +53,9 @@ const PostForm = () => {
       userProfileId: userProfile.id
     };
 
-    addPost(newPost).then(() => {
-      // Navigate the user back to the home route
-      history.push(`/posts/`);
+    addPost(newPost).then((newlyCreatedPost) => {
+      // Navigate the user to post details of the post that was just created
+      history.push(`/post/${newlyCreatedPost.id}`)
     });
     }
   };
