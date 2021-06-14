@@ -49,6 +49,17 @@ export const PostProvider = (props) => {
       }).then((res) => res.json()))
   }
 
+  const deletePost = (id) => {
+    return getToken().then((token) => 
+      fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }))
+  };
+
+
   const getCurrentUserPosts = () => {
      return getToken().then((token) =>
        fetch(`/api/post/getbyuser/${userProfile.id}`, {
@@ -62,7 +73,7 @@ export const PostProvider = (props) => {
   }
 
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost, getCurrentUserPosts }}>
+    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPost, setSearchPost, findPost, getPost, getCurrentUserPosts, deletePost }}>
       {props.children}
     </PostContext.Provider>
   );
