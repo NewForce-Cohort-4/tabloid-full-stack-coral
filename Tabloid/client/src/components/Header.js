@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -7,8 +7,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
-} from 'reactstrap';
+  NavLink,
+} from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
@@ -45,7 +45,7 @@ export default function Header() {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/categories/create">
-                    Categories
+                    Add Category
                   </NavLink>
                 </NavItem>
               </>
