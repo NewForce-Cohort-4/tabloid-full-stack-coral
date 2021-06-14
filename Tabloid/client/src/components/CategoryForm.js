@@ -26,7 +26,7 @@ const CategoryForm = () => {
           name: category.name
         })
           .then(setCategory({}))
-          .then(history.push("/"));
+          .then(history.push("/categories"));
       }
     } 
   
