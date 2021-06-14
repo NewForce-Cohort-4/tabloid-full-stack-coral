@@ -9,11 +9,11 @@ using Microsoft.Data.SqlClient;
 
 namespace Tabloid.Repositories
 {
-    public class CategoryRepository : BaseRepository, ICategoryRepository
+    public class TagRepository : BaseRepository, ITagRepository
     {
-        public CategoryRepository(IConfiguration configuration) : base(configuration) { }
+        public TagRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Category> GetAll()
+        public List<Tag> GetAll()
         {
             using (SqlConnection conn = Connection)
             {
@@ -21,40 +21,39 @@ namespace Tabloid.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT  Id,
-                                [Name]
-                        FROM Category
-                    ";
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    List<Category> categories = new List<Category>();
+                SELECT Id, Name
+                FROM Tag
+                ORDER BY Name";
 
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<Tag> tags = new List<Tag>();
                     while (reader.Read())
                     {
-                        categories.Add(new Category()
+                        tags.Add(new Tag()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Name = DbUtils.GetString(reader, "Name"),
+                            Name = DbUtils.GetString(reader, "Name")
                         });
                     }
                     reader.Close();
-                    return categories;
+                    return tags;
                 }
             }
         }
 
-        public void Add(Category category)
+        public void Add(Tag tag)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Category (Name)
+                    cmd.CommandText = @"INSERT INTO Tag (Name)
                                         OUTPUT INSERTED.ID
                                         VALUES (@Name)";
-                    DbUtils.AddParameter(cmd, "@Name", category.Name);
+                    DbUtils.AddParameter(cmd, "@Name", tag.Name);
 
-                    category.Id = (int)cmd.ExecuteScalar();
+                    tag.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
