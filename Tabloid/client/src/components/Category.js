@@ -8,7 +8,9 @@ const Category = ({ category }) => {
         <>
             <tr>
                 <th scope="row">{category.id}</th>
-                <td><h3>{category.name}</h3></td>
+                <td><h4>{category.name}</h4></td>
+                {/* Button Placeholder */}
+                {/* <td><div><Button>Edit</Button><Button>Delete</Button></div></td> */}
             </tr>
         </>
     )
