@@ -8,7 +8,7 @@ const TagList = () => {
 
   useEffect(() => {
     getAllTags();
-  }, []);
+  });
 
   return (
     <>
