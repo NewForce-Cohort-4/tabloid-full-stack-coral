@@ -6,7 +6,7 @@ export const TagContext = React.createContext();
 
 export const TagProvider = (props) => {
   const getToken = () => firebase.auth().currentUser.getIdToken();
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState([]);
   const apiUrl = "https://localhost:5001/api/tag";
 
  const getAllTags = () => {
@@ -33,10 +33,25 @@ export const TagProvider = (props) => {
     );
   };
 
+    const addTag = (tag) => {
+      debugger
+      return getToken().then((token) =>
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(tag),
+        })
+      );
+    };
+
   return (
     <TagContext.Provider
       value={{
-        getAllTags, tags, deleteTag
+        getAllTags, tags, deleteTag,
+        tags, addTag
       }}
     >
       {props.children}

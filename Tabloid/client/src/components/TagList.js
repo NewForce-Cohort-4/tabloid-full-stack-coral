@@ -19,12 +19,17 @@ const TagList = () => {
   const [modal, setModal] = useState(false);
   useEffect(() => {
     getAllTags();
-  }, []);
+  });
 
 const toggle = () => setModal(!modal);
 
   return (
     <>
+      <Button color="primary">
+        <Link to={`/tags/create`} style={{ color: "white" }}>
+          Create Tag
+        </Link>
+      </Button>
       <Container className="card-list-container" fluid={true}>
         <div className="col justify-content-center">
           {tags.map((tag) => (
