@@ -20,6 +20,12 @@ namespace Tabloid.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_categoryRepository.GetAll());
+        }
+
         [HttpPost]
         public IActionResult Post(Category category)
         {
