@@ -17,7 +17,7 @@ const PostList = () => {
         <>
             <Container className="card-list-container" fluid={true}>
                 <Button color="secondary" onClick={() => {
-                history.push(`/posts/add`)
+                history.push(`/post/add`)
                 }}>Add New Post</Button>
                 <div className="row justify-content-center">
                     {posts.map((post) => (

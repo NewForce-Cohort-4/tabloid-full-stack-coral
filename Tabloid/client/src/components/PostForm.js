@@ -55,7 +55,7 @@ const PostForm = () => {
 
     addPost(newPost).then((newlyCreatedPost) => {
       // Navigate the user to post details of the post that was just created
-      history.push(`/post/${newlyCreatedPost.id}`)
+      history.push(`/posts/${newlyCreatedPost.id}`)
     });
     }
   };

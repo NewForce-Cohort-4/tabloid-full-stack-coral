@@ -42,6 +42,16 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpGet("GetByUser/{id}")]
+        public IActionResult GetByUser(int id)
+        {
+            var post = _postRepository.GetUserPosts(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
         // POST api/<ValuesController>
         [HttpPost]
         public IActionResult Post(Post post)
@@ -65,8 +75,10 @@ namespace Tabloid.Controllers
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _postRepository.Delete(id);
+            return NoContent();
         }
     }
 }

@@ -11,30 +11,30 @@ namespace Tabloid.Models
     {
         public int Id { get; set; }
 
-								[Required]
+        [Required]
         public string Title { get; set; }
 
-								[Required]
+        [Required]
         public string Content { get; set; }
 
-								[DisplayName("Header Image URL")]
+        [DisplayName("Header Image URL")]
         public string ImageLocation { get; set; }
 
         public DateTime CreateDateTime { get; set; }
 
-								[DisplayName("Published")]
-								[DataType(DataType.Date)]
-								public DateTime? PublishDateTime { get; set; }
+        [DisplayName("Published")]
+        [DataType(DataType.Date)]
+        public DateTime? PublishDateTime { get; set; }
 
         public bool IsApproved { get; set; }
 
-								[Required]
-								[DisplayName("Category")]
+        [Required]
+        [DisplayName("Category")]
         public int CategoryId { get; set; }
-								public Category Category { get; set; }
+        public Category Category { get; set; }
 
 
-								[DisplayName("Author")]
+        [DisplayName("Author")]
         public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
     }
