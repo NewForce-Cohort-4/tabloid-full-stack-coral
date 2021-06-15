@@ -6,10 +6,7 @@ namespace Tabloid.Repositories
 {
     public interface ICategoryRepository
     {
-        void AddCategory(Category category);
-        void DeleteCategory(int Id);
-        List<Category> GetAllCategories();
-        Category GetCategorygById(int id);
-        void UpdateCategory(Category category);
+        public void Add(Category category);
+        List<Category> GetAll();
     }
 }

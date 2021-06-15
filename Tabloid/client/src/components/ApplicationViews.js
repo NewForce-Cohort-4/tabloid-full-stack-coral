@@ -8,6 +8,7 @@ import PostForm from "./PostForm"
 import PostDetails from "./PostDetails"
 import {UserPosts} from "./UserPosts"
 import PostList from "./PostList";
+import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm"
 import TagList from "./TagList"
 import TagForm from "./TagForm"
@@ -50,6 +51,10 @@ export default function ApplicationViews() {
           {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>
 
+        <Route path="/categories">
+          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+        
         <Route path="/tags/create">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
