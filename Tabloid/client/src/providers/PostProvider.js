@@ -62,7 +62,7 @@ export const PostProvider = (props) => {
 
   const getCurrentUserPosts = () => {
      return getToken().then((token) =>
-       fetch(`/api/post/getbyuser/${userProfile.id}`, {
+       fetch(`${apiUrl}/getbyuser/${userProfile.id}`, {
          method: "GET",
          headers: {
            Authorization: `Bearer ${token}`,

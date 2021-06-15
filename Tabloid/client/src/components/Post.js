@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardTitle, CardImg, CardBody, Badge, Button,  Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom"
@@ -55,4 +55,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post
+export default Post;
