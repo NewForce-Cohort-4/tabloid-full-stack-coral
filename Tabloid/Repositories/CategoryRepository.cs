@@ -13,6 +13,35 @@ namespace Tabloid.Repositories
     {
         public CategoryRepository(IConfiguration configuration) : base(configuration) { }
 
+        public List<Category> GetAll()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT  Id,
+                                [Name]
+                        FROM Category
+                    ";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<Category> categories = new List<Category>();
+
+                    while (reader.Read())
+                    {
+                        categories.Add(new Category()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                        });
+                    }
+                    reader.Close();
+                    return categories;
+                }
+            }
+        }
+
         public void Add(Category category)
         {
             using (var conn = Connection)
