@@ -6,20 +6,23 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Tag from "./Tag"
+import { useHistory, useParams } from "react-router-dom";
 
 const TagList = () => {
   const { tags, getAllTags } = useContext(TagContext);
   useEffect(() => {
     getAllTags();
   });
-
+  const history = useHistory();
 
   return (
     <>
-      <Button color="primary">
-        <Link to={`/tags/create`} style={{ color: "white" }}>
-          Create Tag
-        </Link>
+      <Button
+        color="primary"
+        onClick={() => history.push("/tags/create")}
+        // style={{ color: "white" }}
+      >
+        Create Tag
       </Button>
       <Container className="card-list-container" fluid={true}>
         <div className="col justify-content-center">
