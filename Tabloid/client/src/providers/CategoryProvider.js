@@ -1,11 +1,12 @@
 import React, { useState, createContext, useEffect, useContext } from "react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import * as firebase from "firebase/app";
 
 export const CategoryContext = React.createContext();
 
 export const CategoryProvider = (props) => {
     const [ categories, setCategories ] = useState([]);
-    const { getToken } = useContext(UserProfileContext);
+    const getToken = () => firebase.auth().currentUser.getIdToken();
 
     const apiUrl = "https://localhost:5001/api/Category";
 
@@ -33,7 +34,6 @@ export const CategoryProvider = (props) => {
       })
     );
   };
-
 
   return (
     <CategoryContext.Provider

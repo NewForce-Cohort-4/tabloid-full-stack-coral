@@ -13,7 +13,7 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+	[Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
@@ -25,9 +25,9 @@ namespace Tabloid.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        public IActionResult Get()
+		public IActionResult Get()
         {
-            return Ok(_postRepository.GetAllApprovedPosts());
+		    return Ok(_postRepository.GetAllApprovedPosts());
         }
 
         // GET api/<ValuesController>/5
@@ -54,14 +54,23 @@ namespace Tabloid.Controllers
         }
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Post post)
         {
+            _postRepository.Add(post);
+            return Ok(post);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, Post post)
         {
+            if(id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            _postRepository.UpdatePost(post);
+            return NoContent();
         }
 
         // DELETE api/<ValuesController>/5

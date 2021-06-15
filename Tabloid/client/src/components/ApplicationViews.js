@@ -4,6 +4,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import PostForm from "./PostForm"
 import PostDetails from "./PostDetails"
 import {UserPosts} from "./UserPosts"
 import PostList from "./PostList";
@@ -38,6 +39,14 @@ export default function ApplicationViews() {
           <PostDetails />
         </Route>
 
+        <Route path="/post/add">
+          <PostForm />
+        </Route>
+
+        <Route path="/posts/edit/:postId">
+          <PostForm />
+        </Route>
+        
         <Route path="/myposts">
           {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>

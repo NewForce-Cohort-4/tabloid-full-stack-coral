@@ -6,10 +6,12 @@ import { CategoryProvider } from './providers/CategoryProvider';
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { TagProvider } from './providers/TagProvider';
+
 function App() {
   return (
     <Router>
       <PostProvider>
+      <CategoryProvider>
         <UserProfileProvider>
             <TagProvider>
               <CategoryProvider>
@@ -18,6 +20,7 @@ function App() {
               </CategoryProvider>        
             </TagProvider>         
         </UserProfileProvider>
+      </CategoryProvider>
       </PostProvider>
     </Router>
   );

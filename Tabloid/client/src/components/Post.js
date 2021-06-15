@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardTitle, CardImg, CardBody, Badge, Button,  Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { PostContext } from "../providers/PostProvider"
 
 const Post = ({ post }) => {
@@ -10,6 +10,12 @@ const Post = ({ post }) => {
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"))
 
   const postId = post.id;
+  
+  const history = useHistory();
+
+  const handleClick = () => {
+        history.push(`/posts/edit`)
+  }
 
   const toggle = () => setModal(!modal);
 
@@ -30,6 +36,10 @@ const Post = ({ post }) => {
           <p className="text-left">Posted by: <em>{post.userProfile.displayName}</em></p>
           {post.userProfileId === userProfile.id ?
             <> 
+            <Button color="secondary" size="sm" onClick={() => {
+                history.push(`/posts/edit/${post.id}`)
+                }}>Edit
+            </Button>
             <Button color="danger" size="sm" onClick={toggle}>Delete</Button>
             <Modal isOpen={modal} toggle={toggle} style={{textAlign: "center"}}>
               <ModalHeader>Delete Post: {post.title}</ModalHeader>
