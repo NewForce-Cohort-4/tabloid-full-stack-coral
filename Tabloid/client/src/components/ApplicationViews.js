@@ -51,19 +51,19 @@ export default function ApplicationViews() {
           {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/categories">
+        <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
         
-        <Route path="/tags/create">
+        <Route strict path="/tags/create">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
 
-        {/* <Route path="/categories/create">
+        <Route exact path="/categories/create">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
-        </Route> */}
+        </Route>
 
-        <Route path="/tags">
+        <Route exact path="/tags">
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
       </Switch>

@@ -24,9 +24,9 @@ const Tag = ({ tag }) => {
           Delete
         </Button>
         <Modal isOpen={modal} toggle={toggle} style={{ textAlign: "center" }}>
-          <ModalHeader>Delete Post: {tag.name}</ModalHeader>
+          <ModalHeader>Delete Tag: {tag.name}</ModalHeader>
           <ModalBody>
-            <b>Please confirm you would like to delete the post:</b>
+            <b>Please confirm you would like to delete the tag:</b>
             <br /> <em>{tag.name}</em>
             <br />
             <br />
