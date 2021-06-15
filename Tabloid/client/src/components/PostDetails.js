@@ -15,7 +15,7 @@ const PostDetails = () => {
   }, []);
 
   const handleClick = () => {
-      history.push("/")
+      history.push("/posts")
   }
 
   if (!post) {
