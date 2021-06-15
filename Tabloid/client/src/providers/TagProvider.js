@@ -9,17 +9,28 @@ export const TagProvider = (props) => {
   const [tags, setTags] = useState([]);
   const apiUrl = "https://localhost:5001/api/tag";
 
-  const getAllTags = () => {
-    return getToken()
-      .then((token) =>
-        fetch(apiUrl, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }).then((res) => res.json())
-      )
-      .then(setTags);
+ const getAllTags = () => {
+   return getToken()
+     .then((token) =>
+       fetch(apiUrl, {
+         method: "GET",
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       }).then((res) => res.json())
+     )
+     .then(setTags);
+ };
+  const deleteTag = (id) => {
+    debugger
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
   };
 
     const addTag = (tag) => {
@@ -39,7 +50,7 @@ export const TagProvider = (props) => {
   return (
     <TagContext.Provider
       value={{
-        getAllTags,
+        getAllTags, tags, deleteTag,
         tags, addTag
       }}
     >
