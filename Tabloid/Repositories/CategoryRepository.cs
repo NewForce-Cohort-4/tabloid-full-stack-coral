@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
 using Tabloid.Repositories;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
