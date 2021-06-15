@@ -50,7 +50,7 @@ const PostForm = () => {
       publishDateTime: new Date(),
       isApproved: true,
       categoryId,
-      userProfileId: userProfile.id
+      userProfileId: parseInt(userProfile.id)
     };
 
     addPost(newPost).then((newlyCreatedPost) => {

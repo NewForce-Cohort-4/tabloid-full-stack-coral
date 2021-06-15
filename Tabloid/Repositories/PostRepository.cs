@@ -111,7 +111,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "PostImageLocation"),
                             UserProfile = new UserProfile()
                             {
-                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                Id = DbUtils.GetInt(reader, "UserId"),
                                 FirstName = DbUtils.GetString(reader, "FirstName"),
                                 LastName = DbUtils.GetString(reader, "LastName"),
 								DisplayName = DbUtils.GetString(reader, "DisplayName"),
