@@ -1,14 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import { TagContext } from "../providers/TagProvider";
-import { Container, Row, Col, Media, Button } from "reactstrap";
-import { Card, CardTitle } from "reactstrap";
+import {
+  Button,
+  Container,
+} from "reactstrap";
 import { Link } from "react-router-dom";
+import Tag from "./Tag"
+
 const TagList = () => {
   const { tags, getAllTags } = useContext(TagContext);
-
   useEffect(() => {
     getAllTags();
   });
+
 
   return (
     <>
@@ -20,11 +24,7 @@ const TagList = () => {
       <Container className="card-list-container" fluid={true}>
         <div className="col justify-content-center">
           {tags.map((tag) => (
-            <>
-              <Card className="m-4 p-2">
-                <CardTitle tag="h3">{tag.name}</CardTitle>
-              </Card>
-            </>
+            <Tag key={tag.id} tag={tag} />
           ))}
         </div>
       </Container>
