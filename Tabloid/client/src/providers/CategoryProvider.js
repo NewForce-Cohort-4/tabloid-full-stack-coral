@@ -34,7 +34,20 @@ export const CategoryProvider = (props) => {
       })
     );
   };
- const deleteCategory = (id) => {
+
+  const updateCategory = (category) => {
+    return getToken().then((token) =>
+    fetch (`${apiUrl}/${category.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(category)
+    }))
+  };
+  
+  const deleteCategory = (id) => {
    debugger;
    return getToken().then((token) =>
      fetch(`${apiUrl}/${id}`, {
@@ -50,7 +63,9 @@ export const CategoryProvider = (props) => {
       value={{
         addCategory,
         getAllCategories,
-        categories, deleteCategory
+        categories, 
+        deleteCategory,
+        updateCategory
      }}
     >
       {props.children}
