@@ -59,6 +59,7 @@ namespace Tabloid.Repositories
             }
         }
 
+        //Changes any tag's category associated with the targeted category to avoid deleting posts
         public void Delete(int id)
         {
             using (SqlConnection conn = Connection)
