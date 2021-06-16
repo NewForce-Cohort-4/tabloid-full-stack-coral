@@ -20,7 +20,17 @@ export const TagProvider = (props) => {
        }).then((res) => res.json())
      )
      .then(setTags);
- };
+  };
+  const getTag = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => res.json())
+    );
+  };
   const deleteTag = (id) => {
     debugger
     return getToken().then((token) =>
@@ -47,11 +57,28 @@ export const TagProvider = (props) => {
       );
     };
 
+    const updateTag = (tagToUpdate) => {
+      return getToken().then((token) =>
+        fetch(`${apiUrl}/${tagToUpdate.id}`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(tagToUpdate),
+        })
+      );
+    };
+  
   return (
     <TagContext.Provider
       value={{
-        getAllTags, tags, deleteTag,
-        tags, addTag
+        getAllTags,
+        deleteTag,
+        tags,
+        addTag,
+        updateTag,
+        getTag,
       }}
     >
       {props.children}

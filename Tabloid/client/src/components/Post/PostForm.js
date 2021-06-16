@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useState } from "react"
-import { PostContext } from "../providers/PostProvider";
-import { CategoryContext } from "../providers/CategoryProvider";
-import { useHistory, useParams } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -11,6 +8,9 @@ import {
   Input,
   Button
 } from "reactstrap";
+import { PostContext } from "../../providers/PostProvider";
+import { CategoryContext } from "../../providers/CategoryProvider"
+import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {
     const { addPost, getPost, updatePost } = useContext(PostContext);

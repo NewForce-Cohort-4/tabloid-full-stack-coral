@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardTitle, CardImg, CardBody, Badge, Button,  Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Link, useHistory } from "react-router-dom"
-import { PostContext } from "../providers/PostProvider"
+import { PostContext } from "../../providers/PostProvider"
 
 const Post = ({ post }) => {
   const [ modal, setModal ] = useState(false)

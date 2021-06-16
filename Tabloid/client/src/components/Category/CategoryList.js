@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { CategoryContext } from "../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
 import { Container, Table, Button } from "reactstrap";
 import Category from "./Category";
 import { Link } from "react-router-dom";

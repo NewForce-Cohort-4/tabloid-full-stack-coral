@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "reactstrap";
-import { CategoryContext } from "../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
 
 const Category = ({ category }) => {
     const { getAllCategories, deleteCategory } = useContext(CategoryContext);

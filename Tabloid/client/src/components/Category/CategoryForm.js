@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CategoryContext } from "../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
 import { useHistory, useParams } from "react-router-dom";
 import { Alert, Button } from "reactstrap";
 
