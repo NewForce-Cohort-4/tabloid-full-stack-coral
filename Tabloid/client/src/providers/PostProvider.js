@@ -6,7 +6,6 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState([]);
   const [searchPost, setSearchPost] = useState("")
   const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
   const getToken = () => firebase.auth().currentUser.getIdToken();
@@ -42,18 +41,16 @@ export const PostProvider = (props) => {
     }));
   };
 
-  const updatePost = post => {
+  const updatePost = (postToUpdate) => {
     return getToken().then((token) =>
-    fetch (`apiUrl/${post.id}`, {
+    fetch (`${apiUrl}/${postToUpdate.id}`, {
         method: "PUT",
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(post)
-    }))
-        .then(getAllPosts)
-        
+        body: JSON.stringify(postToUpdate)
+    }))       
 }
 
   const findPost = (q) => {

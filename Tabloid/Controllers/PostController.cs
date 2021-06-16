@@ -62,13 +62,8 @@ namespace Tabloid.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Post post)
+        public IActionResult Put(Post post)
         {
-            if(id != post.Id)
-            {
-                return BadRequest();
-            }
-
             _postRepository.UpdatePost(post);
             return NoContent();
         }

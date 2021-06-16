@@ -38,7 +38,7 @@ namespace Tabloid.Repositories
                     LEFT JOIN Category c ON p.CategoryId = c.id
                     LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                     LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                WHERE IsApproved = 1
+                WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
                 ORDER BY p.PublishDateTime DESC";
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Post> posts = new List<Post>();
@@ -109,6 +109,7 @@ namespace Tabloid.Repositories
                             CreateDateTime = DbUtils.GetDateTime(reader, "PostCreateDate"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PostPublishDate"),
                             ImageLocation = DbUtils.GetString(reader, "PostImageLocation"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserId"),
@@ -142,7 +143,7 @@ namespace Tabloid.Repositories
                         INSERT INTO Post (Title, ImageLocation, Content, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
                         OUTPUT INSERTED.ID
                         VALUES (@Title, @ImageLocation, @Content, @CreateDateTime, @PublishDateTime, @IsApproved, @CategoryId, @UserProfileId)";
-
+                       
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
@@ -159,7 +160,7 @@ namespace Tabloid.Repositories
             return post;
         }
 
-        public void UpdatePost(Post post)
+        public Post UpdatePost(Post post)
         {
             using (SqlConnection conn = Connection)
             {
@@ -190,6 +191,8 @@ namespace Tabloid.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+
+            return post;
         }
 
         public void Delete(int id)
