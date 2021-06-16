@@ -37,7 +37,7 @@ const Post = ({ post }) => {
           {post.userProfileId === userProfile.id ?
             <> 
             <Button color="secondary" size="sm" onClick={() => {
-                history.push(`/posts/edit/${post.id}`)
+                history.push(`/post/edit/${post.id}`)
                 }}>Edit
             </Button>
             <Button color="danger" size="sm" onClick={toggle}>Delete</Button>
