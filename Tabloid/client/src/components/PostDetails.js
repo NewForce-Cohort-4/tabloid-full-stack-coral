@@ -22,10 +22,7 @@ const PostDetails = () => {
   }
 
   var d = new Date(post.publishDateTime);
-  var curr_date = d.getDate();
-  var curr_month = d.getMonth();
-  var curr_year = d.getFullYear();
-  let publishDate = `${curr_month}/${curr_date}/${curr_year}`
+  let publishDate = d.toLocaleDateString('en-US')
 
   return (
     <Row>
