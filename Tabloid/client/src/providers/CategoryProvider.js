@@ -22,7 +22,7 @@ export const CategoryProvider = (props) => {
   };
   
   const addCategory = (category) => {
-    debugger
+    // debugger
     return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
@@ -34,8 +34,33 @@ export const CategoryProvider = (props) => {
       })
     );
   };
- const deleteCategory = (id) => {
-   debugger;
+
+  const getCategory = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((r) => r.json()))
+  }
+
+
+  const updateCategory = (category) => {
+    //debugger;
+    return getToken().then((token) =>
+    fetch (`${apiUrl}/${category.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(category)
+    }))
+  };
+  
+  const deleteCategory = (id) => {
+   //debugger;
    return getToken().then((token) =>
      fetch(`${apiUrl}/${id}`, {
        method: "DELETE",
@@ -50,7 +75,10 @@ export const CategoryProvider = (props) => {
       value={{
         addCategory,
         getAllCategories,
-        categories, deleteCategory
+        categories, 
+        deleteCategory,
+        updateCategory,
+        getCategory
      }}
     >
       {props.children}

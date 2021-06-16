@@ -42,6 +42,38 @@ namespace Tabloid.Repositories
             }
         }
 
+        public Category GetById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT [Name]
+                        FROM Category
+                        WHERE Id = @Id;
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    Category category = null;
+                    while (reader.Read())
+                    {
+                        category = new Category()
+                        {
+                            Id = id,
+                            Name = DbUtils.GetString(reader, "Name"),
+                        };
+                    }
+                    reader.Close();
+
+                    return category;
+                }
+            }
+        }
+
         public void Add(Category category)
         {
             using (var conn = Connection)
@@ -75,6 +107,27 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }
+            }
+        }
+
+        public void Update(Category category)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Category
+                        SET [Name] = @name
+                        WHERE Id = @Id
+                    ";
+                    DbUtils.AddParameter(cmd, "@Id", category.Id);
+                    DbUtils.AddParameter(cmd, "@name", category.Name);
+
+                    cmd.ExecuteNonQuery();
+                }
+               
             }
         }
     }
