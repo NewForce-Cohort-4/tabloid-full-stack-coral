@@ -40,5 +40,19 @@ namespace Tabloid.Controllers
             _categoryRepository.Delete(id);
             return NoContent();
         }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            try
+            {
+                _categoryRepository.Update(category);
+                return NoContent();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }

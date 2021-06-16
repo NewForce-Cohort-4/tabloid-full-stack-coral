@@ -77,5 +77,26 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public void Update(Category category)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Category
+                        SET [Name] = @name
+                        WHERE Id = @Id
+                    ";
+                    DbUtils.AddParameter(cmd, "@Id", category.Id);
+                    DbUtils.AddParameter(cmd, "@name", category.Name);
+
+                    cmd.ExecuteNonQuery();
+                }
+               
+            }
+        }
     }
 }
