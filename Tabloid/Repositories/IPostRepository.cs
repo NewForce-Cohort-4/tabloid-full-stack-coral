@@ -11,6 +11,6 @@ namespace Tabloid.Repositories
         Post UpdatePost(Post post);
         void Delete(int id);
         List<Post> GetUserPosts(int id);
-        int PostAddTag(Tag tag, int postId);
+        int PostAddTag(List<int>tagIds, int postId);
     }
 }

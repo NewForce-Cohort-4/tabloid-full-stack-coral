@@ -33,16 +33,16 @@ export const PostTagProvider = (props) => {
     );
   };
 
-    const addPostTag = (tag) => {
+    const addPostTag = (postTag) => {
       debugger
       return getToken().then((token) =>
-        fetch(apiUrl, {
+        fetch(`${apiUrl}/AddPostTag`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(tag),
+          body: JSON.stringify(postTag),
         })
       );
     };

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams } from 'react-router-dom';
-import { TagContext } from "../providers/TagProvider";
-import { PostContext } from "../providers/PostProvider";
-import { PostTagContext } from "../providers/PostTagProvider";
+import { TagContext } from "../../providers/TagProvider";
+import { PostContext } from "../../providers/PostProvider";
+import { PostTagContext } from "../../providers/PostTagProvider";
 import {
     FormGroup,
     Label,
@@ -15,7 +15,6 @@ const ManageTags = () => {
 
     const { tags, getAllTags } = useContext(TagContext);
     const { addPostTag } = useContext(PostTagContext)
-    const { getPost } = useContext(PostContext);
     const history = useHistory();
     const { postId } = useParams();
 
@@ -38,14 +37,8 @@ const ManageTags = () => {
         event.preventDefault();
         if (postId) {
             addPostTag({
-                userProfileId: userProfileId,
-                Title: postInput.title,
-                Content: postInput.content,
-                createDateTime: printDate(),
-                PublishDateTime: printDate(),
-                ImageLocation: postInput.imageLocation,
-                CategoryId: parseInt(postInput.categoryId),
-                IsApproved: true
+                postId: postId,
+                tags: [tag.id]
             })
             .then((parsedRes) => history.push(`/posts/${parsedRes.id}`))
         }

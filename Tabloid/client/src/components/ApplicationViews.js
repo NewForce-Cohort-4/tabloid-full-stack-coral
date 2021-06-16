@@ -12,7 +12,7 @@ import CategoryList from "./Category/CategoryList";
 import CategoryForm from "./Category/CategoryForm";
 import TagList from "./Tag/TagList"
 import TagForm from "./Tag/TagForm"
-import ManageTags from "./ManageTags";
+import ManageTags from "./Tag/ManageTags";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);

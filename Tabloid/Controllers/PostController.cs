@@ -61,10 +61,10 @@ namespace Tabloid.Controllers
         }
 
         // POST api/<ValuesController>
-        [HttpPost]
-        public IActionResult AddPostTag(PostTag postTag)
+        [HttpPost("AddPostTag")]
+        public IActionResult AddPostTag(List<int>tagIds, int postId)
         {
-            _postRepository.PostAddTag(postTag);
+            var postTag = _postRepository.PostAddTag(tagIds, postId);
             return Ok(postTag);
         }
 

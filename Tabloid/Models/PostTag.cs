@@ -7,5 +7,8 @@ namespace Tabloid.Models
 {
     public class PostTag
     {
+        public int id { get; set; }
+        public int PostId { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }
