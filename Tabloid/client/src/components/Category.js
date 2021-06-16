@@ -24,9 +24,12 @@ const Category = ({ category }) => {
           <td>
             <h4>{category.name}</h4>
           </td>
-          <Button color="danger" size="sm" onClick={toggle}>
-            Delete
-          </Button>
+          <td>
+            <Button color="danger" size="sm" onClick={toggle}>
+              Delete
+            </Button>
+          </td>
+
           <Modal isOpen={modal} toggle={toggle} style={{ textAlign: "center" }}>
             <ModalHeader>Delete Tag: {category.name}</ModalHeader>
             <ModalBody>
