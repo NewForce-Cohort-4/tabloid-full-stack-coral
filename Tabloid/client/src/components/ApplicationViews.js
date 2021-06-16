@@ -46,7 +46,7 @@ export default function ApplicationViews() {
         <Route path="/post/edit/:postId">
           <PostForm />
         </Route>
-        
+
         <Route path="/myposts">
           {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>
@@ -54,8 +54,10 @@ export default function ApplicationViews() {
         <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
-        
         <Route strict path="/tags/create">
+          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route strict path="/tags/edit/:tagId">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
 

@@ -9,17 +9,26 @@ import {
   ModalBody,
   ModalFooter,
 } from "reactstrap";
-
+import { useHistory } from "react-router-dom";
 const Tag = ({ tag }) => {
     const { getAllTags, deleteTag } = useContext(TagContext);
     const [modal, setModal] = useState(false);
-
+  const history = useHistory()
   const toggle = () => setModal(!modal);
 
   return (
     <>
       <Card className="m-4 p-2">
         <CardTitle tag="h3">{tag.name}</CardTitle>
+        <Button
+          color="secondary"
+          size="sm"
+          onClick={() => {
+            history.push(`/tags/edit/${tag.id}`);
+          }}
+        >
+          Edit
+        </Button>
         <Button color="danger" size="sm" onClick={toggle}>
           Delete
         </Button>

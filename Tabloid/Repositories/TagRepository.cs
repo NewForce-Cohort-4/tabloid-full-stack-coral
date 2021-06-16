@@ -40,7 +40,37 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public Tag GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                SELECT Id, Name
+                From Tag
+                WHERE Id = @id";
 
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Tag tag = null;
+                    if (reader.Read())
+                    {
+                        tag = new Tag()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                        };
+                    }
+                    reader.Close();
+
+                    return tag;
+                }
+            }
+        }
         public void Add(Tag tag)
         {
             using (var conn = Connection)
@@ -88,7 +118,7 @@ namespace Tabloid.Repositories
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@name", tag.Name);
-
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }

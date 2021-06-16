@@ -2,11 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { TagContext } from "../../providers/TagProvider";
 import { useHistory, useParams } from "react-router-dom";
 import { Alert } from "bootstrap";
+import { getTarget } from "reactstrap/lib/utils";
 
 const TagForm = () => {
-  const { addTag } = useContext(TagContext);
+  const { addTag, getTag, updateTag } = useContext(TagContext);
   const [tag, setTag] = useState({});
   const history = useHistory();
+  const { tagId } = useParams();
+
+  useEffect(() => {
+    if (tagId) {
+      getTag(tagId).then(setTag)
+    }
+  }, [])
 
   const handleControlledInputChange = (event) => {
     const newTag = { ...tag };
@@ -16,6 +24,9 @@ const TagForm = () => {
     //Checks to ensure name is provided, calls fetch to add tag, redirects to tags index
   const handleSaveTag = () => {
     if (tag.name) {
+      if (tagId) {
+        updateTag(tag).then(history.push("/tags"));
+      } else {
         addTag({
           name: tag.name,
         })
@@ -23,10 +34,11 @@ const TagForm = () => {
           .then(history.push("/tags"));
       }
     }
+    }
 
   return (
     <form className="tagForm">
-      <h2 className="tagForm__name">New Tag</h2>
+      <h2 className="tagForm__name">{tagId ? "Edit Tag" : "New Tag"}</h2>
       <fieldset>
         <div className="form-group">
           <label htmlFor="title">Tag name: </label>
@@ -50,7 +62,14 @@ const TagForm = () => {
           handleSaveTag();
         }}
       >
-        Add Tag
+        {tagId ? "Edit Tag" : "Add Tag"}
+      </button>
+      <button
+        className="btn btn-secondary"
+        onClick={() => {history.push("/tags")}
+        }
+      >
+        Cancel
       </button>
     </form>
   );
