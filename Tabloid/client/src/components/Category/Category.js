@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import {
   Card,
   CardTitle,
@@ -14,6 +14,7 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 const Category = ({ category }) => {
     const { getAllCategories, deleteCategory } = useContext(CategoryContext);
     const [modal, setModal] = useState(false);
+    const history = useHistory();
 
     const toggle = () => setModal(!modal);
 
@@ -25,6 +26,9 @@ const Category = ({ category }) => {
             <h4>{category.name}</h4>
           </td>
           <td>
+            <Button color="secondary" style={{marginRight: '.5rem'}} size="sm" onClick={() => history.push(`/categories/edit/${category.id}`)}>
+              Edit
+            </Button>
             <Button color="danger" size="sm" onClick={toggle}>
               Delete
             </Button>
