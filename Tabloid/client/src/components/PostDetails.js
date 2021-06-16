@@ -33,6 +33,7 @@ const PostDetails = () => {
                     <CardText>{post.content}</CardText>
                     <strong>Publish Date: {publishDate}</strong>
                     <strong>Author: {post.userProfile.displayName}</strong>
+                    <Button color="primary" onClick={() => {history.push(`/post/add-new-tag/${id}`)}}>Manage Tags</Button>
                     <Button onClick={handleClick}>Go Back</Button>
             </Card>
         </Col>

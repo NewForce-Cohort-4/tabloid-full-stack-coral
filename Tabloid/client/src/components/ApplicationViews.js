@@ -12,6 +12,7 @@ import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm"
 import TagList from "./TagList"
 import TagForm from "./TagForm"
+import ManageTags from "./ManageTags"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -35,11 +36,11 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/posts/:id">
+        <Route exact path="/posts/:id">
           <PostDetails />
         </Route>
 
-        <Route path="/post/add">
+        <Route exact path="/post/add">
           <PostForm />
         </Route>
 
@@ -65,6 +66,10 @@ export default function ApplicationViews() {
 
         <Route exact path="/tags">
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/post/add-new-tag/:id">
+          {isLoggedIn ? <ManageTags /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </main>
