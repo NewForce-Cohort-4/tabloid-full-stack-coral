@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 import Hello from "./Hello";
-import PostForm from "./PostForm"
-import PostDetails from "./PostDetails"
-import {UserPosts} from "./UserPosts"
-import PostList from "./PostList";
-import CategoryList from "./CategoryList";
-import CategoryForm from "./CategoryForm"
-import TagList from "./TagList"
-import TagForm from "./TagForm"
-import ManageTags from "./ManageTags"
+import PostForm from "./Post/PostForm"
+import PostDetails from "./Post/PostDetails";
+import { UserPosts } from "./Post/UserPosts";
+import PostList from "./Post/PostList";
+import CategoryList from "./Category/CategoryList";
+import CategoryForm from "./Category/CategoryForm";
+import TagList from "./Tag/TagList"
+import TagForm from "./Tag/TagForm"
+import ManageTags from "./ManageTags";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -47,7 +47,7 @@ export default function ApplicationViews() {
         <Route path="/post/edit/:postId">
           <PostForm />
         </Route>
-        
+
         <Route path="/myposts">
           {isLoggedIn ? <UserPosts /> : <Redirect to="/login" />}
         </Route>
@@ -55,8 +55,10 @@ export default function ApplicationViews() {
         <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
-        
         <Route strict path="/tags/create">
+          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route strict path="/tags/edit/:tagId">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
 

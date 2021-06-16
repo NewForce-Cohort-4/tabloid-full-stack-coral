@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { PostContext } from "../providers/PostProvider";
+import { PostContext } from "../../providers/PostProvider";
 import { Container, Button, Row, Col, Media } from "reactstrap";
 import { useHistory } from "react-router-dom"
 import Post from "./Post"
