@@ -8,5 +8,6 @@ namespace Tabloid.Repositories
     {
         public void Add(Category category);
         List<Category> GetAll();
+        public void Delete(int id);
     }
 }

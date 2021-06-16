@@ -57,7 +57,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
-
+        //Deletes PostTag instances related to the tag we want to delete first due to the required FK of TagId
         public void Delete(int id)
         {
             using (SqlConnection conn = Connection)
