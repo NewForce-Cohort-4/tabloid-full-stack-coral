@@ -16,7 +16,7 @@ const CategoryList = () => {
     return (
       <>
         <Container className="justify-content-center" fluid={true}>
-          <Button color="primary" onClick={() => history.push("/categories/create")} style={{ color: "white" }}>
+          <Button color="primary" onClick={() => history.push("/categories/create")} style={{ color: "white", marginBottom: '1rem' }}>
               Create Category
           </Button>
           <Table>

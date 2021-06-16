@@ -63,7 +63,7 @@ namespace Tabloid.Repositories
                     {
                         category = new Category()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
+                            Id = id,
                             Name = DbUtils.GetString(reader, "Name"),
                         };
                     }
