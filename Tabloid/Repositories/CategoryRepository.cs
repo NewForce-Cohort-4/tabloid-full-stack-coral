@@ -58,5 +58,24 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        //Changes any tag's category associated with the targeted category to avoid deleting posts
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Post 
+                                        SET CategoryId = 22 
+                                        WHERE CategoryId = @Id
+                                        DELETE FROM Category
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -34,13 +34,23 @@ export const CategoryProvider = (props) => {
       })
     );
   };
-
+ const deleteCategory = (id) => {
+   debugger;
+   return getToken().then((token) =>
+     fetch(`${apiUrl}/${id}`, {
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${token}`,
+       },
+     })
+   );
+ };
   return (
     <CategoryContext.Provider
       value={{
         addCategory,
         getAllCategories,
-        categories
+        categories, deleteCategory
      }}
     >
       {props.children}

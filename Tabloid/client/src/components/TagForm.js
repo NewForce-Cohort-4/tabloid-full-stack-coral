@@ -9,16 +9,11 @@ const TagForm = () => {
   const history = useHistory();
 
   const handleControlledInputChange = (event) => {
-    //When changing a state object or array,
-    //always create a copy make changes, and then set state.
     const newTag = { ...tag };
-    //task is an object with properties.
-    //set the property to the new value
     newTag[event.target.name] = event.target.value;
-    //update state
     setTag(newTag);
   };
-
+    //Checks to ensure name is provided, calls fetch to add tag, redirects to tags index
   const handleSaveTag = () => {
     if (tag.name) {
         addTag({
