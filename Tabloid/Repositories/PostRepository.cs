@@ -259,5 +259,27 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public int PostAddTag(List<int> tagIds, int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO PostTag (PostId, TagId)
+                                                       VALUES (@postId, @tagId)";
+                    foreach (int tagId in tagIds)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@postId", postId);
+                        cmd.Parameters.AddWithValue("@tagId", tagId);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+                return postId;
+            }
+        }
     }
 }
