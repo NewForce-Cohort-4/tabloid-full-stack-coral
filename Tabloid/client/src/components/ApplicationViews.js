@@ -43,7 +43,7 @@ export default function ApplicationViews() {
           <PostForm />
         </Route>
 
-        <Route path="/posts/edit/:postId">
+        <Route path="/post/edit/:postId">
           <PostForm />
         </Route>
         
