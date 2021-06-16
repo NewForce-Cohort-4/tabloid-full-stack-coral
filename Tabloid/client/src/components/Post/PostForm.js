@@ -8,8 +8,8 @@ import {
   Input,
   Button
 } from "reactstrap";
-import { PostContext } from "../providers/PostProvider";
-import { CategoryContext } from "../providers/CategoryProvider"
+import { PostContext } from "../../providers/PostProvider";
+import { CategoryContext } from "../../providers/CategoryProvider"
 import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {

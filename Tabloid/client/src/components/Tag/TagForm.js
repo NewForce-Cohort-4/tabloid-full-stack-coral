@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TagContext } from "../providers/TagProvider";
+import { TagContext } from "../../providers/TagProvider";
 import { useHistory, useParams } from "react-router-dom";
 import { Alert } from "bootstrap";
 
