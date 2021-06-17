@@ -26,16 +26,17 @@ const PostDetails = () => {
 
   return (
     <Row>
-        <Col sm="12">
-            <Card body>
-                    <CardTitle tag="h3">{post.title}</CardTitle>
-                    <CardImg src={post.imageLocation}/>
-                    <CardText>{post.content}</CardText>
-                    <strong>Publish Date: {publishDate}</strong>
-                    <strong>Author: {post.userProfile.displayName}</strong>
-                    <Button onClick={handleClick}>Go Back</Button>
-            </Card>
-        </Col>
+      <Col sm="12">
+        <Card body>
+          <CardTitle tag="h3">{post.title}</CardTitle>
+          <CardImg src={post.imageLocation} />
+          <CardText>{post.content}</CardText>
+          <strong>Publish Date: {publishDate}</strong>
+          <strong>Author: {post.userProfile.displayName}</strong>
+          <Button color="primary" onClick={() => history.push(`comments/${post.id}`)}>View Comments</Button>
+          <Button onClick={handleClick}>Go Back</Button>
+        </Card>
+      </Col>
     </Row>
   );
 };
