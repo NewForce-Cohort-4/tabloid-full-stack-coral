@@ -9,6 +9,6 @@ namespace Tabloid.Models
     {
         public int id { get; set; }
         public int PostId { get; set; }
-        public List<Tag> Tags { get; set; }
+        public int TagId { get; set; }
     }
 }

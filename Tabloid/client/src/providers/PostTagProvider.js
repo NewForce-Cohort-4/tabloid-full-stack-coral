@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -7,7 +7,7 @@ export const PostTagContext = React.createContext();
 export const PostTagProvider = (props) => {
   const getToken = () => firebase.auth().currentUser.getIdToken();
   const [postTags, setPostTags] = useState([]);
-  const apiUrl = "https://localhost:5001/api/tag";
+  const apiUrl = "https://localhost:5001/api/PostTag";
 
  const getAllPostTags = () => {
    return getToken()
@@ -21,8 +21,17 @@ export const PostTagProvider = (props) => {
      )
      .then(setPostTags);
  };
+
+ const getPostTagsByPostId = (id) => {
+    return getToken().then((token) => 
+    fetch(`${apiUrl}/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => res.json()))
+ }
   const deletePostTag = (id) => {
-    debugger
     return getToken().then((token) =>
       fetch(`${apiUrl}/${id}`, {
         method: "DELETE",
@@ -34,9 +43,8 @@ export const PostTagProvider = (props) => {
   };
 
     const addPostTag = (postTag) => {
-      debugger
       return getToken().then((token) =>
-        fetch(`${apiUrl}/AddPostTag`, {
+        fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -51,7 +59,7 @@ export const PostTagProvider = (props) => {
     <PostTagContext.Provider
       value={{
         getAllPostTags, deletePostTag,
-        postTags, addPostTag
+        postTags, addPostTag, getPostTagsByPostId, postTags
       }}
     >
       {props.children}
