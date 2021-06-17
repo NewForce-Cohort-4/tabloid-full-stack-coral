@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { TagProvider } from './providers/TagProvider';
 import { PostTagProvider } from './providers/PostTagProvider';
+import { CommentProvider } from './providers/CommentProvider';
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
           <UserProfileProvider>
               <TagProvider>
                 <CategoryProvider>
+                  <CommentProvider>
                   <Header />
+                  </CommentProvider>
                   <ApplicationViews />
                 </CategoryProvider>        
               </TagProvider>         
@@ -25,8 +28,8 @@ function App() {
         </CategoryProvider>
         </PostProvider>
       </PostTagProvider>
-    </Router>
-  );
+     </Router>
+  )
 }
 
 export default App;

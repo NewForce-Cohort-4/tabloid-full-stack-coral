@@ -37,8 +37,13 @@ namespace Tabloid.Models
         [DisplayName("Author")]
         public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
+<<<<<<< HEAD
 
         [DisplayName("Tags")]
         public List<Tag> Tags { get; set; }
+=======
+        public List<Comment> Comments { get; set; }
+>>>>>>> main
     }
+
 }

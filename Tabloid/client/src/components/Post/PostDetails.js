@@ -41,6 +41,7 @@ const PostDetails = () => {
                     <h4><Badge color="secondary" key={tag.id} value={tag.name}>{tag.name}</Badge></h4>
                     ))}
                     <Button color="primary" onClick={() => {history.push(`/post/add-new-tag/${id}`)}}>Manage Tags</Button>
+                    <Button color="primary" onClick={() => history.push(`comments/${post.id}`)}>View Comments</Button>
                     <Button onClick={handleClick}>Go Back</Button>
             </Card>
         </Col>

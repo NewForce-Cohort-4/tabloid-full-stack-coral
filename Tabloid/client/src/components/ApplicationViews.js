@@ -14,17 +14,18 @@ import TagList from "./Tag/TagList"
 import TagForm from "./Tag/TagForm"
 import ManageTags from "./Tag/ManageTags";
 
+import CommentList from "./Comment/CommentList"
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
 
   return (
     <main>
       <Switch>
-        <Route path="/" exact>
+        <Route exact path="/">
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/posts" exact>
+        <Route exact path="/posts">
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
 
@@ -44,7 +45,7 @@ export default function ApplicationViews() {
           <PostForm />
         </Route>
 
-        <Route path="/post/edit/:postId">
+        <Route exact path="/post/edit/:postId">
           <PostForm />
         </Route>
 
@@ -55,13 +56,12 @@ export default function ApplicationViews() {
         <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
-        <Route strict path="/tags/create">
+        <Route exact path="/tags/create">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
-        <Route strict path="/tags/edit/:tagId">
+        <Route exact path="/tags/edit/:tagId">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
-
         <Route exact path="/categories/create">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
         </Route>
@@ -76,6 +76,10 @@ export default function ApplicationViews() {
 
         <Route exact path="/post/add-new-tag/:id">
           {isLoggedIn ? <ManageTags /> : <Redirect to="/login" />}
+        </Route>
+        
+        <Route exact path="/posts/comments/:postId">
+          {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </main>
