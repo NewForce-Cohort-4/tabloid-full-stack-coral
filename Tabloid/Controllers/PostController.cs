@@ -60,6 +60,15 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        //// POST api/<ValuesController>
+        //[HttpPost]
+        //[Route("AddPostTag")]
+        //public IActionResult AddPostTag(int postId, List<int> tagIds)
+        //{
+        //    _postRepository.PostAddTag(postId, tagIds);
+        //    return Ok(new { postId, tagIds });
+        //}
+
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
         public IActionResult Put(Post post)
